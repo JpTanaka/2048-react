@@ -1,3 +1,22 @@
+:root {
+  --twoback:#eee4da;
+  --four: rgb(237, 224, 200);
+  --fourback:#eee1c9;
+  --numbercolor: #f9f6f2;
+  --eightback:#f3b27a;
+  --sixteenback:#f69664;
+  --thirtytwoback:#f77c5f;
+  --sixtyfourback:#f75f3b;
+  --onehundredback:#edd073;
+  --twohundredback:#edcc62;
+  --fivehundredback:#edc950;
+  --thousandback:#edc53f;
+  --twothousandback:#edc22e;
+  --board:#bbada0;
+  --emptysquare:rgba(238, 228, 218, 0.35);
+}
+
+
 .board-container {
   height: 100vh;
   width: 100vw;
@@ -8,18 +27,84 @@
 .board {
   height:90%;
   aspect-ratio: 1 / 1;
-  background-color: gray;
+  background-color: var(--board);
+}
+.square.square0color {
+  text-indent: -9999px;  
+  background-color: var(--emptysquare);
 }
 
 .square.square2color {
-  background-color: aqua;
+
+  background-color: var(--twoback);
+}
+.square.square4color {
+  background-color:var(--fourback);
+}
+.square.square8color {
+  background-color:var(--eightback);
+  color:var(--numbercolor);
 }
 
+.square.square16color {
+  background-color:var(--sixteenback);
+  color:var(--numbercolor);
+}
+.square.square32color {
+  background-color:var(--thirtytwoback);
+  color:var(--numbercolor); 
+}
+.square.square64color {
+  background-color:var(--sixtyfourback);
+  color:var(--numbercolor);
+}
+.square.square128color {
+  background-color:var(--onehundredback);
+  color:var(--numbercolor);
+}
+.square.square256color {
+  background-color:var(--twohundredback);
+  color:var(--numbercolor);
+}
+.square.square512color {
+  background-color:var(--fivehundredback);
+  color:var(--numbercolor);
+}
+.square.square1024color {
+  background-color:var(--thousandback);
+  color:var(--numbercolor);
+}
+.square.square2048color {
+  background-color:var(--twothousandback);
+  color:var(--numbercolor);
+}
+@keyframes appear {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -ms-transform: scale(0);
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+.new {
+  animation: appear 200ms ease 100ms;
+  animation-fill-mode: backwards;
+}
 .board {
   display: grid;
   padding: 10px;
   grid-template-rows: repeat(4, 1 fr);
   gap: 10px;
+  border-radius: 10px;
 }
 .board-row {
   display: grid;
@@ -28,10 +113,12 @@
 }
 .square {
   margin: 0px;
-  background-color: aliceblue;
+  background-color: var(--emptysquare);
+  border-radius: 10px;
+  font-size: xxx-large;
+  color:#776e65;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: larger;
   font-weight: bold;
 }
