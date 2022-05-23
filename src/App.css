@@ -29,6 +29,45 @@
   aspect-ratio: 1 / 1;
   background-color: var(--board);
 }
+.no-focus {
+  animation-name: example;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+
+
+
+@keyframes example {
+  from {}
+  to {
+    filter:brightness(80%)  blur(10px);
+  }
+}
+@keyframes appeartext {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.focusmessage {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  font-size: xxx-large;
+  font-weight: bolder;
+  position:relative;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 100;
+  cursor:default;
+  animation: appeartext 500ms ease 100ms;
+  animation-fill-mode: backwards;
+
+}
+
 .square.square0color {
   text-indent: -9999px;  
   background-color: var(--emptysquare);

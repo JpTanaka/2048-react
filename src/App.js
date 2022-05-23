@@ -1,6 +1,25 @@
 import React, { useState } from 'react';
 import './App.css';
 import ReactDOM from 'react-dom';
+import { useEffect, useRef  } from "react";
+
+// function ({ name }) => {
+//   useEffect(() => {
+//     function handleKeyDown(e) {
+//       console.log(e.keyCode);
+//     }
+
+//     document.addEventListener('keydown', handleKeyDown);
+
+//     // Don't forget to clean up
+//     return function cleanup() {
+//       document.removeEventListener('keydown', handleKeyDown);
+//     }
+//   }, []);
+
+//   return <div>Keydown</div>;
+// };
+
 
 function generaterandomnumber(matrix) {
     const ind = Math.random();
@@ -153,8 +172,8 @@ function IsNew(newsquare, square) {
 
 
 var first = true;
-function Board () {
-  function handleKeyPress(e) {
+function Board ({ onKeyDown }) {
+  const handleKeyDown = (e) => {
     var probability = function(n) {
       return !!n && Math.random() <= n;
     };
@@ -165,7 +184,6 @@ function Board () {
     setMatrix(merged);
     if(first==true||played==true) {
     const array = generaterandomnumber(matrix);
-    
     let copya = [...matrix];
     if(probability(0.8)) {
     copya[array[0]][array[1]] = 2;
@@ -178,31 +196,40 @@ function Board () {
     first = false;
     }
   }
+
+  const [focused, setFocused] = React.useState(false)
+  const onFocus = () => setFocused(true)
+  const onBlur = () => setFocused(false)
+  let classNameboard = "board-row " + (focused ? "focus" : "no-focus");
   const [newsquare, setNewsquare] = useState([0,0]);
   const [matrix, setMatrix] = useState(Array(4).fill().map(()=> Array(4).fill(0)));
   return  (
     <div className="board-container">
-      <div className="board" onKeyDown={(e) => handleKeyPress(e)} tabIndex={-1}>
-      <input type="hidden" onKeyPress={(e) => handleKeyPress(e)} />
-      <div className="board-row">
+      
+      <div className="board" onKeyDown={(e) => handleKeyDown(e)} tabIndex={-1} onFocus={onFocus} onBlur={onBlur}>
+      { !focused &&
+        <div className="focusmessage">Click me!</div>
+        }
+      <input type="hidden" />
+      <div className={classNameboard}>
         <Square num = {matrix[0][0]} new = {IsNew(newsquare, [0,0])} />
         <Square num = {matrix[0][1]} new = {IsNew(newsquare, [0,1])}/>
         <Square num = {matrix[0][2]} new = {IsNew(newsquare, [0,2])}/>
         <Square num = {matrix[0][3]} new = {IsNew(newsquare, [0,3])}/>
       </div>
-      <div className="board-row">
+      <div className={classNameboard}>
         <Square num = {matrix[1][0]} new = {IsNew(newsquare, [0,0])}/>
         <Square num = {matrix[1][1]} new = {IsNew(newsquare, [1,1])}/>
         <Square num = {matrix[1][2]} new = {IsNew(newsquare, [1,2])}/>
         <Square num = {matrix[1][3]} new = {IsNew(newsquare, [1,3])}/>
       </div>
-      <div className="board-row">
+      <div className={classNameboard}>
         <Square num = {matrix[2][0]} new = {IsNew(newsquare, [2,0])}/>
         <Square num = {matrix[2][1]} new = {IsNew(newsquare, [2,1])}/>
         <Square num = {matrix[2][2]} new = {IsNew(newsquare, [2,2])}/>
         <Square num = {matrix[2][3]} new = {IsNew(newsquare, [2,3])}/>
       </div>
-      <div className="board-row">
+      <div className={classNameboard}>
         <Square num = {matrix[3][0]} new = {IsNew(newsquare, [3,0])}/>
         <Square num = {matrix[3][1]} new = {IsNew(newsquare, [3,1])}/>
         <Square num = {matrix[3][2]} new = {IsNew(newsquare, [3,2])}/>
